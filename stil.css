@@ -1,0 +1,132 @@
+:root{
+  --bg:#0a0a0a; --ink:#f2ede4; --dim:#8f8b84; --line:rgba(242,237,228,.16);
+  --f:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --pad:clamp(14px,2.2vw,34px);
+  --ch:clamp(190px,18.5vw,340px); /* kart yüksekliği: yatay 4:3, dikey 3:4, hepsi aynı boyda */
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-weight:300;font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+img{display:block;max-width:100%}
+:focus-visible{outline:1px solid var(--ink);outline-offset:3px}
+.label{font-weight:300;font-size:clamp(12px,1.05vw,15px);letter-spacing:.02em;text-transform:uppercase;line-height:1.15}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:flex-end;align-items:center;gap:clamp(14px,2vw,28px);
+  padding:14px var(--pad);transition:background .3s}
+.nav.solid{background:rgba(10,10,10,.85);backdrop-filter:blur(12px)}
+.links{display:flex;gap:clamp(14px,2vw,28px)}
+.links a,.lang{font-weight:300;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.links a{opacity:.6;transition:opacity .2s}
+.links a:hover{opacity:1}
+.lang{display:flex;gap:5px}
+.lang b{font-weight:300;opacity:.4} .lang i{font-style:normal;opacity:.4}
+html[lang=tr] .lang b[data-l=tr],html[lang=en] .lang b[data-l=en]{opacity:1;font-weight:500}
+
+/* GİRİŞ */
+.hero{padding:clamp(52px,6vw,78px) var(--pad) clamp(28px,4vw,56px)}
+h1{font-weight:700;font-size:19vw;line-height:.8;letter-spacing:-.045em;text-transform:uppercase;white-space:nowrap;
+  margin-left:-.055em;padding-top:.06em}
+h1 span{display:inline-block}
+.name{font-weight:200;font-size:clamp(15px,1.5vw,22px);letter-spacing:.01em;margin-top:clamp(14px,1.6vw,24px)}
+
+/* İŞLER: numaralı şeritler */
+.row{margin-bottom:clamp(22px,3.2vw,46px)}
+.row-label{padding:0 var(--pad);margin-bottom:clamp(12px,1.6vw,22px)}
+.row-label.r{text-align:right;padding-right:calc(var(--pad) + 4vw)}
+.row-label.l{padding-left:calc(var(--pad) + 4vw)}
+.row-label small{display:block;font-size:inherit;color:var(--dim)}
+.strip{display:flex;gap:clamp(6px,.75vw,12px);overflow-x:auto;padding:0 var(--pad);scrollbar-width:none;cursor:grab;
+  scroll-snap-type:x proximity;scroll-padding-left:var(--pad)}
+.strip::-webkit-scrollbar{display:none}
+.strip.drag{cursor:grabbing;scroll-snap-type:none}
+.strip.drag .card{pointer-events:none}
+.card{flex:none;width:calc(var(--ch)*4/3);text-align:left;scroll-snap-align:start;transition:opacity .35s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.card.p{width:calc(var(--ch)*3/4)}
+.card .ph{display:block;height:var(--ch);overflow:hidden;background:#161616;position:relative}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1);-webkit-user-drag:none;user-select:none}
+.card .play{position:absolute;left:8px;bottom:8px;font-size:11px;font-weight:400;letter-spacing:.04em;text-transform:uppercase;
+  background:var(--ink);color:var(--bg);padding:3px 7px;opacity:0;transform:translateY(4px);transition:.3s}
+.card .cap{display:flex;gap:8px;margin-top:8px;font-size:11px;font-weight:400;letter-spacing:.03em;text-transform:uppercase}
+.card .cap i{font-style:normal;color:var(--dim);transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (hover:hover){
+  .strip:hover .card{opacity:.38}
+  .strip:hover .card:hover{opacity:1}
+  .card:hover img{transform:scale(1.07)}
+  .card:hover .play{opacity:1;transform:none}
+  .card:hover .cap i{color:var(--ink)}
+}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+/* HAKKIMDA + İLETİŞİM */
+.block{display:grid;grid-template-columns:1fr 2fr;gap:var(--pad);padding:clamp(44px,7vw,110px) var(--pad);border-top:1px solid var(--line)}
+.about-text{max-width:62ch}
+.about-text p{margin-bottom:1.1em;color:var(--dim);font-size:clamp(15px,1.25vw,18px)}
+.about-text p:first-child{color:var(--ink);font-size:clamp(20px,2.3vw,34px);line-height:1.18;letter-spacing:-.015em}
+.mail{display:inline-block;font-weight:700;font-size:clamp(24px,5.6vw,92px);letter-spacing:-.04em;line-height:1;
+  background:linear-gradient(currentColor,currentColor) left bottom/0 2px no-repeat;transition:background-size .5s cubic-bezier(.2,.7,.2,1);padding-bottom:.08em}
+.mail:hover{background-size:100% 2px}
+.socials{display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,30px);margin-top:clamp(18px,2.4vw,34px)}
+.socials a{font-size:clamp(12px,1.05vw,15px);letter-spacing:.02em;text-transform:uppercase;opacity:.6;transition:opacity .2s}
+.socials a:hover{opacity:1}
+.socials a::after{content:" ↗"}
+.foot{display:flex;justify-content:space-between;gap:12px;padding:18px var(--pad);border-top:1px solid var(--line);
+  font-size:12px;letter-spacing:.03em;text-transform:uppercase;color:var(--dim)}
+
+/* PROJE PENCERESİ */
+.modal{position:fixed;inset:0;z-index:100}
+.modal[hidden],.lb[hidden]{display:none}
+.modal-back{position:absolute;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);animation:fade .3s}
+.modal-panel{position:absolute;inset:clamp(0px,2vw,28px);background:var(--bg);border:1px solid var(--line);
+  display:flex;flex-direction:column;overflow:hidden;animation:pop .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes fade{from{opacity:0}}
+@keyframes pop{from{opacity:0;transform:translateY(28px)}}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:clamp(14px,2vw,24px) clamp(16px,2.6vw,32px);border-bottom:1px solid var(--line)}
+.modal-head h2{font-weight:700;font-size:clamp(30px,6vw,92px);line-height:.85;letter-spacing:-.045em;text-transform:uppercase}
+.modal-head .label{color:var(--dim);margin-bottom:10px}
+.modal-nav{display:flex;gap:4px}
+.modal-nav button,.lb-x,.lb-a{width:40px;height:40px;border:1px solid var(--line);font-size:15px;transition:.2s;flex:none}
+.modal-nav button:hover,.lb-x:hover,.lb-a:hover{background:var(--ink);color:var(--bg)}
+.modal-body{overflow-y:auto;padding:clamp(16px,2.6vw,32px);flex:1}
+.m-desc{color:var(--dim);max-width:70ch;margin-bottom:8px;font-size:17px}
+.m-links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:10px 0 4px}
+.m-links a{font-size:13px;letter-spacing:.03em;text-transform:uppercase;opacity:.65}
+.m-links a:hover{opacity:1}
+.m-h{font-weight:300;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--dim);margin:26px 0 12px}
+.vids{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;align-items:start}
+.vid{grid-column:span 6;position:relative;background:#000;overflow:hidden}
+.vid.v{grid-column:span 3}
+.vid.solo{grid-column:2/span 10}
+.vid.v.solo{grid-column:5/span 4}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid .wait{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--dim)}
+.shots{columns:3;column-gap:10px}
+.shots button{display:block;width:100%;margin-bottom:10px;overflow:hidden;background:#161616;cursor:zoom-in}
+.shots img{width:100%;transition:transform .5s}
+.shots button:hover img{transform:scale(1.03)}
+
+.lb{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.96);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:16px;animation:fade .25s}
+.lb img{max-width:100%;max-height:calc(100svh - 64px);margin:auto;object-fit:contain}
+.lb-x{position:absolute;top:14px;right:14px}
+.lb-c{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:var(--dim)}
+
+@media (max-width:900px){
+  :root{--ch:clamp(170px,42vw,260px)}
+  .block{grid-template-columns:1fr}
+  .vid{grid-column:span 12}.vid.v{grid-column:span 6}.vid.solo{grid-column:span 12}.vid.v.solo{grid-column:4/span 6}
+  .shots{columns:2}
+  .hero{padding-top:64px}
+}
+@media (max-width:600px){
+  .lb{grid-template-columns:1fr}.lb-a{position:absolute;bottom:14px}.lb-a.prev{left:14px}.lb-a.next{right:14px}
+  .modal-head{align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}.reveal{opacity:1;transform:none}
+}
